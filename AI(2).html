@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet">
+    <style>
+
+        .body{
+           background: rgb(0, 0, 0);
+           font-family: Arial, Helvetica, sans-serif;
+           font: outline;
+           font-weight: 400;
+           font-stretch: normal;
+
+        }
+
+        @font-face {
+	font-family: 'Roboto-Regular';
+	src: url('../fonts/Roboto-Regular.eot');
+	src: local('☺'), url('../fonts/Roboto-Regular.woff') format('woff'), url('../fonts/Roboto-Regular.ttf') format('truetype'), url('../fonts/Roboto-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: "Flaticon";
+    src: url("../fonts/Flaticon.eot");
+    src: url("../fonts/Flaticon.eot?#iefix") format("embedded-opentype"),
+         url("../fonts/Flaticon.woff2") format("woff2"),
+         url("../fonts/Flaticon.woff") format("woff"),
+         url("../fonts/Flaticon.ttf") format("truetype"),
+         url("../fonts/Flaticon.svg#Flaticon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+      font-family: "Flaticon";
+      src: url("../fonts/Flaticon.svg#Flaticon") format("svg");
+    }
+  }
+  
+  [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+  [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+    font-family: Flaticon;
+          font-size: 30px;
+  font-style: normal;
+  }
+  
+.flaticon-microphone:before { content: "\f100"; }
+
+*{margin: 0;padding: 0;box-sizing: border-box;}
+body{font-family: 'Roboto-Regular';background: #E7F2F1;}
+header {
+    height: 60px;
+    background: rgb(0, 0, 0);
+    color: #ffffff;
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    box-shadow: 10px 0 5px #000000;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+}
+.main {
+    width: 100%;
+    float: left;
+    margin-top: 60px;
+    padding: 30px 0;
+}
+.main button {
+    background: #ff0000;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    border: none;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+.main button:focus{outline: none;}
+.container {
+    width: 85%;
+    margin: 0 auto;
+}
+.user-area, .chatbot-area {
+    width: 20%;
+    height: calc(100vh - 60px);
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 80px;
+    z-index: 99999;
+}
+.chatbot-area {
+    float: right;
+    right: 80px;
+    left: auto;
+}
+.user-area img, .chatbot-area img {
+    width: 100%;
+}
+.user-area img{left: 0;}
+.chatarea-main {
+    width: 42%;
+    margin: 0 auto;
+    background: #0e0d0d;
+}
+.chatarea-outer {
+    width: 100%;
+    float: left;
+    background: #0e0d0d;
+}
+.chatbot-area .chatarea-main{float: left;}
+.chatarea.user {
+    float: right;
+    width: 40%;
+    padding: 20px 0;
+    background: #0e0d0d;
+}
+
+.chatarea-inner {
+    float: left;
+    width: 60%;
+    padding: 10px;
+    color: rgb(0, 0, 0);
+    position: relative;
+    margin: 5px 0;
+}
+.chatarea-inner.user{
+    background: rgb(164, 158, 255);
+}
+.chatarea-inner.chatbot{
+    background: #ffa6a6;
+    float: right;
+}
+.chatarea-inner.user:before {
+    content: '';
+    position: absolute;
+    border-right: 20px solid #ff7b7b;
+    border-top: 20px solid transparent;
+    border-bottom: 0px solid transparent;
+    bottom: 0;
+    left: -20px;
+}
+.chatarea-inner.chatbot:before {
+    content: '';
+    position: absolute;
+    border-left: 20px solid #ffffff;
+    border-top: 20px solid transparent;
+    border-bottom: 0px solid transparent;
+    bottom: 0;
+    right: -20px;
+}
+
+.black{
+    background: #000000;
+}
+
+.chatbot-area .chatarea-inner{float: left;}
+
+
+    </style>
+</head>
+<body>
+    <div class="black">
+    <div class="body">
+    <header>CHAT WITH THE AI</header>
+    <section class="main">
+            <div class="user-area">
+                <img src='C:\Users\AGU\Desktop\user.png'>
+            </div>
+            <div class="chatarea-main">
+                <div class="chatarea-outer">
+                    <!-- <div class="chatarea-inner user">Hello hi, how area you, i am good. What about you!</div>
+                    <div class="chatarea-inner chatbot">Hello hi, how area you, i am good. What about you!</div>
+                    <div class="chatarea-inner user">Hello hi, how area you, i am good. What about you!</div> -->
+                </div>
+            </div>    
+            <div class="chatbot-area">
+                <img src='C:\Users\AGU\Desktop\chatbot.png'>
+            </div>
+        <button id="mic"><i class="flaticon-microphone">CLICK AND SPEAK</i></button>
+    </section>
+    </div>
+    </div>
+    <script>
+        var AINAME = window.prompt("Enter the desired name of AI robot you want to keep : ")
+        var USER_NAME = window.prompt("Enter your name")
+
+
+        let mic = document.getElementById("mic");
+let chatareamain = document.querySelector('.chatarea-main');
+let chatareaouter = document.querySelector('.chatarea-outer');
+
+let intro = ["Hi, I am " + AINAME + ", the NASA AI", "I am the most advanced AI robot", "Hi, My name is " + AINAME + "!, The SIMMBA AI."];
+let help = ["How may i assist you " + USER_NAME + " IN YOUR COOL WORK?","How can i help you AS I THINK YOU WANT HELP FROM ME","What i can do for you"];
+let greetings = ["i am coolest AI in the word", "i am fine, what about you, cool like always", "don't want to talk to now sir", "i am good"];
+let hobbies = ["i love to talk with humans and animals", "i like to make friends like you", "i like chatting with humans and animals"];
+let my_CHANNEL = ["Opening...."];
+let classroom = ['Opening your online classes.... Opening classroom for class meet code, Opening google meet for meeting, and mail for your time table....']
+let thank = ["Most welcome","Not an issue","Its MY PLEASURE TO SERVE Humans and animals","Mention not"];
+let closing = ['Ok bye','As you wish, bye take-care','Bye-bye, see you'];
+let creator = ["My creator, Neil Datt created me when he was 11. He kept my name on his best dog 'SIMMBA' who was a labrardor. He was as fast as a ferreri."];
+let Google = ['Opening google for your search....'];
+let mad = ['You say me mad,i can hack your computur '];
+let idiot = ['You say idiot and i obey your command, i get idiot'];
+let stupid = ['You say me mad and i obey your command, i get stupid'];
+let greeting1 = ['Good morning sir','Morning','Morning sir','Good morning'];
+let greeting2 = ['Good afternoon sir','Afternoon','Afternoon sir','Good afternoon'];
+let greeting3 = ['Good evening sir','Evening','Evening sir','Good evening'];
+let greeting4 = ['Good night sir','Night','Night sir','Good night'];
+let songs = ['Opening youtube for some songs...'];
+let play = ['Playing some latest Hollywood movies movies on youtube'];
+let show = ['Yes I can show you the whole world even if it is Lockdow in your whole country India. I have opened google earth and here you can see any place in the world in 3D and also see any mountain and also Mt. Everest from your Home!']
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+function showusermsg(usermsg){
+    let output = '';
+    output += `<div class="chatarea-inner user">${usermsg}</div>`;
+    chatareaouter.innerHTML += output;
+    return chatareaouter;
+}
+
+function showchatbotmsg(chatbotmsg){
+    let output = '';
+    output += `<div class="chatarea-inner chatbot">${chatbotmsg}</div>`;
+    chatareaouter.innerHTML += output;
+    return chatareaouter;
+}
+
+function chatbotvoice(message){
+    const speech = new SpeechSynthesisUtterance();
+    speech.text = "Dint get that, can you repeat it please. If you ar asking this the second time means that this feature is not in this version of SIMMBA AI";
+    if(message.includes('who are you')){
+        let finalresult = intro[Math.floor(Math.random() * intro.length)];
+        speech.text = finalresult;
+    }
+
+    if(message.includes('fine')){
+        speech.text = "I am always fine";
+        let finalresult = help[Math.floor(Math.random() * help.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('how are you' || 'how are you doing today')){
+        let finalresult = greetings[Math.floor(Math.random() * greetings.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('tell me something about you' || 'tell me something about your hobbies')){
+        let finalresult = hobbies[Math.floor(Math.random() * hobbies.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('YouTube')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://studio.youtube.com/channel/UCtki6St7yOypX46Q4klTbfQ');
+    }
+    if(message.includes('Class' || 'class')){
+        let finalresult = classroom[Math.floor(Math.random() * classroom.length)];
+        speech.text = finalresult;
+        window.open('https://classroom.google.com')
+        window.open('https://mail.google.com')
+        window.open('https://meet.google.com')
+    }
+    if(message.includes('Google')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://www.google.com');
+    }
+    if(message.includes('Mail' || 'mail')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://mail.google.com');
+    }
+    if(message.includes('Google Meet' || 'Google meet' || 'google meet')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://meet.google.com');
+    }
+    if(message.includes('Classroom' || 'classroom')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://www.classroom.google.com');
+    }
+    if(message.includes('Maps' || 'maps')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://www.google.com/maps');
+    }
+    if(message.includes('Translate' || 'translate')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://translate.google.com/');
+    }
+    if(message.includes('News' || 'news')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://www.news.google.com');
+    }
+    if(message.includes('prime video' || 'Prime video' || 'Prime Video')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://www.primevideo.com');
+    }
+    if(message.includes('Disney + Hotstar' || 'disney + hotstar' || 'disney plus hotstar' || 'Disney plus hotstar')){
+        let finalresult = my_CHANNEL[Math.floor(Math.random() * my_CHANNEL.length)];
+        speech.text = finalresult;
+        window.open('https://www.hotstar.com');
+    }
+    if(message.includes('Jungle' || 'Jungle')){
+        let finalresult = show[Math.floor(Math.random() * show.length)];
+        speech.text = finalresult;
+        window.open('https://earth.google.com')
+    }
+    if(message.includes('online class' || 'class')){
+        let finalresult = show[Math.floor(Math.random() * show.length)];
+        speech.text = finalresult;
+        window.open('https://earth.google.com')
+    }
+    if(message.includes('stupid')){
+        let finalresult = stupid[Math.floor(Math.random() * stupid.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('idiot')){
+        let finalresult = idiot[Math.floor(Math.random() * idiot.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('mad' || 'mental')){
+        let finalresult = mad[Math.floor(Math.random() * mad.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('talk to you' || 'talk')){
+        let finalresult = closing[Math.floor(Math.random() * closing.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('who is simba' || 'simba')){
+        let finalresult = creator[Math.floor(Math.random() * creator.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('morning' || 'Morning')){
+        let finalresult = greeting1[Math.floor(Math.random() * greeting1.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('afternoon' || 'Afternoon' || 'after noon')){
+        let finalresult = greeting2[Math.floor(Math.random() * greeting2.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('evening' || 'Evening')){
+        let finalresult = greeting3[Math.floor(Math.random() * greeting3.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('night' || 'Night')){
+        let finalresult = greeting4[Math.floor(Math.random() * greeting4.length)];
+        speech.text = finalresult;
+    }
+    if(message.includes('thank' || 'Thank you' || 'thank you')){
+        let finalresult = thank[Math.floor(Math.random() * thank.length)];
+        speech.text = finalresult;
+    }
+
+    window.speechSynthesis.speak(speech);
+    chatareamain.appendChild(showchatbotmsg(speech.text));
+}
+
+recognition.onresult=function(e){
+    let resultIndex = e.resultIndex;
+    let transcript = e.results[resultIndex][0].transcript;
+    chatareamain.appendChild(showusermsg(transcript));
+    chatbotvoice(transcript);
+    console.log(transcript);
+}
+recognition.onend=function(){
+    mic.style.background="#rrrrrrr";
+}
+mic.addEventListener("click", function(){
+    mic.style.background='#000000';
+    recognition.start();
+    console.log("Activated");
+})
+
+    </script>
+</body>
+</html>
